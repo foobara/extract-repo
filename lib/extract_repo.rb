@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby
-
 require "pry"
 require "English"
 
@@ -143,40 +141,3 @@ class ExtractRepo
     result
   end
 end
-
-repo_url, *paths = ARGV
-ExtractRepo.run!(repo_url, paths)
-
-=begin
-a_to_s() {
-  local a=("$@")
-  printf "%s\n" "${a[@]}"
-}
-
-paths=()
-
-# Using while loop to handle file names properly
-while IFS= read -r f; do
-while IFS= read -r path; do
-if [ -n "$path" ]; then
-paths+=("$path")
-fi
-done < <(git log --follow --name-only --pretty=format: -- "$f")
-done < <(find projects/util -type f)
-
-git_repo_paths=""
-
-for repo_path in `a_to_s "${paths[@]}" | sort | uniq`; do
-git_repo_paths+=" --path $repo_path"
-done
-
-filter_repo_command="git-filter-repo $git_repo_paths --force --prune-degenerate always"
-
-echo "$filter_repo_command"
-=end
-
-# ./extract_repo.rb git@github.com:foobara/foobara.git git-filter-repo spec/foobara/truncated_inspect/ spec/foobara/common/util_spec.rb projects/util/
-
-# spec/foobara/truncated_inspect/
-# spec/foobara/common/util_spec.rb
-# projects/util/
