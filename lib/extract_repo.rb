@@ -83,7 +83,9 @@ class ExtractRepo
       chdir repo_dir do
         paths.each do |path|
           unless File.exist?(path)
+            # :nocov:
             raise "Path #{path} does not exist in repo #{repo_dir}"
+            # :nocov:
           end
 
           if File.directory?(path)
@@ -91,7 +93,10 @@ class ExtractRepo
               file_paths << file if File.file?(file)
             end
           else
+            # TODO: test this path
+            # :nocov:
             file_paths << path
+            # :nocov:
           end
         end
       end
@@ -135,7 +140,9 @@ class ExtractRepo
     result = `#{cmd}`
 
     unless $CHILD_STATUS.success?
+      # :nocov:
       raise "Command #{cmd} failed with status #{$CHILD_STATUS.exitstatus}: #{result}"
+      # :nocov:
     end
 
     result

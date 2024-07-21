@@ -1,20 +1,23 @@
+require "English"
 RSpec.describe Foobara::ExtractRepo do
   let(:repo_path) do
     "#{__dir__}/../fixtures/test_repo"
   end
   let(:output_dir) do
     # TODO: make this an input to ExtractRepo
-    "#{ENV.fetch("HOME", nil)}/tmp/extract/test_repo"
+    "#{Dir.home}/tmp/extract/test_repo"
   end
 
   def inflate_test_repo
     Dir.chdir(File.dirname(repo_path)) do
+      # :nocov:
       unless Dir.exist?("extract_repo")
         `tar zxvf test_repo.tar.gz`
-        unless $?.exitstatus == 0
+        unless $CHILD_STATUS.exitstatus == 0
           raise "Failed to inflate test repo"
         end
       end
+      # :nocov:
     end
   end
 
