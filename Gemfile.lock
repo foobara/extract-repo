@@ -18,89 +18,14 @@ GEM
       rexml
     diff-lcs (1.5.1)
     docile (1.4.0)
-    dotenv (3.1.2)
     ffi (1.17.0-x86_64-linux-gnu)
-    foob (0.0.5)
-      foobara
-      foobara-autocrud-generator
-      foobara-command-generator
-      foobara-domain-generator
-      foobara-domain-mapper-generator
-      foobara-empty-ruby-project-generator
-      foobara-empty-typescript-react-project-generator
-      foobara-organization-generator
-      foobara-rack-connector-generator
-      foobara-redis-crud-driver-generator
-      foobara-remote-imports-generator
-      foobara-resque-connector-generator
-      foobara-resque-scheduler-connector-generator
-      foobara-sh-cli-connector
-      foobara-sh-cli-connector-generator
-      foobara-type-generator
-      foobara-typescript-react-command-form-generator
-      foobara-typescript-remote-command-generator
     foobara (0.0.2)
       foobara-util
-    foobara-autocrud-generator (0.0.1)
-      foobara
-      foobara-files-generator
-    foobara-command-generator (0.0.2)
-      foobara
-      foobara-files-generator
-    foobara-domain-generator (0.0.2)
-      foobara
-      foobara-files-generator
-    foobara-domain-mapper-generator (0.0.2)
-      foobara
-      foobara-files-generator
-    foobara-dotenv-loader (0.0.1)
-      dotenv
-    foobara-empty-ruby-project-generator (0.0.5)
-      foobara
-      foobara-files-generator
-    foobara-empty-typescript-react-project-generator (0.0.3)
-      foobara
-      foobara-files-generator
-    foobara-files-generator (0.0.1)
-      foobara
-    foobara-organization-generator (0.0.1)
-      foobara
-      foobara-files-generator
-    foobara-rack-connector-generator (0.0.6)
-      foobara
-      foobara-files-generator
-    foobara-redis-crud-driver-generator (0.0.1)
-      foobara
-      foobara-files-generator
-    foobara-remote-imports-generator (0.0.2)
-      foobara
-      foobara-files-generator
-    foobara-resque-connector-generator (0.0.1)
-      foobara
-      foobara-files-generator
-    foobara-resque-scheduler-connector-generator (0.0.1)
-      foobara
-      foobara-files-generator
     foobara-rubocop-rules (0.0.3)
       rubocop
       rubocop-rspec
-    foobara-sh-cli-connector (0.0.1)
-      foobara
-    foobara-sh-cli-connector-generator (0.0.1)
-      foobara
-      foobara-files-generator
     foobara-spec-helpers (0.0.3)
       foobara-util
-    foobara-type-generator (0.0.1)
-      foobara
-      foobara-files-generator
-    foobara-typescript-react-command-form-generator (0.0.2)
-      foobara
-      foobara-files-generator
-      foobara-typescript-remote-command-generator
-    foobara-typescript-remote-command-generator (0.0.1)
-      foobara
-      foobara-files-generator
     foobara-util (0.0.4)
     formatador (1.1.0)
     guard (2.18.1)
@@ -204,8 +129,6 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  foob
-  foobara-dotenv-loader
   foobara-extract-repo!
   foobara-rubocop-rules
   foobara-spec-helpers

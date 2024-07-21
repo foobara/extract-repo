@@ -6,7 +6,6 @@ gemspec
 gem "rake"
 
 group :development do
-  gem "foob"
   gem "foobara-rubocop-rules"
   gem "guard-rspec"
   gem "rubocop-rake"
