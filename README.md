@@ -7,3 +7,8 @@ $ ./bin/extract-repo git@github.com:org/repo.git some_file.rb some/directory/to/
 ```
 
 Results will wind up in ~/tmp/extract/
+
+## License
+
+extract-repo is licensed under your choice of the Apache License 2.0 or the MIT license.
+See [LICENSE.txt](LICENSE-MIT.txt) for more info about licensing.
