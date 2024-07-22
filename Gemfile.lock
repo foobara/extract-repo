@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    foobara-extract-repo (0.0.1)
+    extract-repo (0.0.1)
       foobara
 
 GEM
@@ -129,7 +129,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  foobara-extract-repo!
+  extract-repo!
   foobara-rubocop-rules
   foobara-spec-helpers
   guard-rspec

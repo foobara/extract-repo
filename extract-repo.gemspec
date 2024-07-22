@@ -1,12 +1,12 @@
 require_relative "version"
 
 Gem::Specification.new do |spec|
-  spec.name = "foobara-extract-repo"
+  spec.name = "extract-repo"
   spec.version = Foobara::ExtractRepo::VERSION
   spec.authors = ["Miles Georgi"]
   spec.email = ["azimux@gmail.com"]
 
-  spec.summary = "No description. Add one."
+  spec.summary = "Extract code from one repository into a new repository, preserving history of the extracted files."
   spec.homepage = "https://github.com/foobara/extract-repo"
 
   # Equivalent to SPDX License Expression: Apache-2.0 OR MIT

@@ -6,7 +6,7 @@ class ExtractRepo < Foobara::Command
   inputs do
     repo_url :string, :required
     paths [:string], :required
-    output_path :string, default: "/#{ENV.fetch("HOME", nil)}/tmp/extract"
+    output_path :string, default: "/#{Dir.home}/tmp/extract"
   end
 
   attr_accessor :file_paths
