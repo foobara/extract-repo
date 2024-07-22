@@ -5,7 +5,7 @@ RSpec.describe Foobara::ExtractRepo do
   end
   let(:output_dir) do
     # TODO: make this an input to ExtractRepo
-    "#{Dir.home}/tmp/extract/test_repo"
+    "/#{Dir.home}/tmp/extract/test_repo"
   end
 
   def inflate_test_repo
@@ -21,15 +21,29 @@ RSpec.describe Foobara::ExtractRepo do
     end
   end
 
+  def rm_test_repo
+    Dir.chdir(File.dirname(repo_path)) do
+      # :nocov:
+      if Dir.exist?("extract_repo")
+        `rm -rf extract_repo`
+        unless $CHILD_STATUS.exitstatus == 0
+          raise "Failed to remove test repo"
+        end
+      end
+      # :nocov:
+    end
+  end
+
   before do
     inflate_test_repo
+    rm_test_repo
   end
 
   context "when extracting a file that was moved" do
     let(:paths) { %w[new_name] }
 
     it "can follow the file's history" do
-      ExtractRepo.run!(repo_path, paths)
+      ExtractRepo.run!(repo_url: repo_path, paths:)
 
       Dir.chdir output_dir do
         expect(File).to exist("new_name/new_name.txt")

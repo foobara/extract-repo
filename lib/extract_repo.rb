@@ -1,19 +1,15 @@
 require "pry"
 require "English"
+require "foobara/all"
 
-class ExtractRepo
-  class << self
-    def run!(repo_url, paths)
-      new(repo_url, paths).execute
-    end
+class ExtractRepo < Foobara::Command
+  inputs do
+    repo_url :string, :required
+    paths [:string], :required
+    output_path :string, default: "/#{ENV.fetch("HOME", nil)}/tmp/extract"
   end
 
-  attr_accessor :repo_url, :paths, :file_paths
-
-  def initialize(repo_url, paths)
-    self.repo_url = repo_url
-    self.paths = paths
-  end
+  attr_accessor :file_paths
 
   def execute
     mk_extract_dir
@@ -32,12 +28,8 @@ class ExtractRepo
     Dir.chdir(File.expand_path(dir), &)
   end
 
-  def extract_dir
-    "~/tmp/extract/"
-  end
-
   def repo_dir
-    File.join(extract_dir,  repo_name)
+    File.join(output_path, repo_name)
   end
 
   def repo_name
@@ -45,7 +37,7 @@ class ExtractRepo
   end
 
   def mk_extract_dir
-    sh "mkdir -p #{extract_dir}"
+    sh "mkdir -p #{output_path}"
   end
 
   def rm_old_repo
@@ -53,7 +45,7 @@ class ExtractRepo
   end
 
   def clone_repo
-    chdir extract_dir do
+    chdir output_path do
       sh "git clone #{repo_url}"
     end
   end
