@@ -64,7 +64,11 @@ class ExtractRepo < Foobara::Command
 
   def remove_replaces
     chdir repo_dir do
-      sh "git replace -l | xargs -n 1 git replace -d"
+      replace_sha1s = sh "git replace -l", silent: true
+      replace_sha1s = replace_sha1s.chomp.split("\n")
+      replace_sha1s.each do |replace_sha1|
+        sh "git replace -d #{replace_sha1}"
+      end
     end
   end
 
@@ -124,8 +128,10 @@ class ExtractRepo < Foobara::Command
     end
   end
 
-  def sh(cmd, dry_run: false)
-    puts cmd
+  def sh(cmd, dry_run: false, silent: false)
+    unless silent
+      puts cmd
+    end
 
     return if dry_run
 
