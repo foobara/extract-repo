@@ -20,12 +20,16 @@ Gem::Specification.new do |spec|
   spec.metadata["changelog_uri"] = "#{spec.homepage}/blob/main/CHANGELOG.md"
 
   spec.files = Dir[
+    "bin/extract-repo",
     "lib/**/*",
     "src/**/*",
     "LICENSE*.txt",
     "README.md",
     "CHANGELOG.md"
   ]
+
+  spec.bindir = "bin"
+  spec.executables = ["extract-repo"]
 
   spec.add_dependency "foobara"
 

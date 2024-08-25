@@ -1,3 +1,7 @@
+## [0.0.2] - 2024-08-25
+
+- Include extract-repo executable
+
 ## [0.0.1] - 2024-08-25
 
 - Initial release
