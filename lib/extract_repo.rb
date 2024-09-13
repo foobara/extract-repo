@@ -2,11 +2,13 @@ require "pry"
 require "English"
 require "foobara/all"
 
+# TODO: allow extracting from a local repo and default to that repo as "."
 class ExtractRepo < Foobara::Command
   inputs do
     repo_url :string, :required
     paths [:string], :required
-    output_path :string, default: "/#{Dir.home}/tmp/extract"
+    output_path :string, default: "#{Dir.home}/tmp/extract"
+    delete_extracted :boolean, default: true
   end
 
   attr_accessor :file_paths

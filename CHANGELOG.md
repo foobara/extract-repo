@@ -1,3 +1,7 @@
+## [unreleased]
+
+- Make use of CommandConnector
+
 ## [0.0.2] - 2024-08-25
 
 - Include extract-repo executable
