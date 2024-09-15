@@ -1,6 +1,7 @@
-## [unreleased]
+## [0.0.3] - 2024-08-25
 
 - Make use of CommandConnector
+- Support deleting extracted paths
 
 ## [0.0.2] - 2024-08-25
 
