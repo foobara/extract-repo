@@ -8,12 +8,13 @@ class ExtractRepo < Foobara::Command
     repo_url :string, :required
     paths [:string], :required
     output_path :string, default: "#{Dir.home}/tmp/extract"
-    delete_extracted :boolean, default: true
+    delete_extracted :boolean, default: false
   end
 
-  attr_accessor :file_paths
+  attr_accessor :file_paths, :absolute_repo_path
 
   def execute
+    determine_absolute_repo_path
     mk_extract_dir
     rm_old_repo
 
@@ -24,6 +25,16 @@ class ExtractRepo < Foobara::Command
     determine_historic_paths
     filter_repo
     remove_replaces
+
+    delete_extracted_paths if delete_extracted?
+  end
+
+  def determine_absolute_repo_path
+    self.absolute_repo_path = if local_repository?
+                                File.absolute_path(repo_url)
+                              else
+                                repo_url
+                              end
   end
 
   def chdir(dir, &)
@@ -48,8 +59,12 @@ class ExtractRepo < Foobara::Command
 
   def clone_repo
     chdir output_path do
-      sh "git clone #{repo_url}"
+      sh "git clone #{absolute_repo_path}"
     end
+  end
+
+  def local_repository?
+    !URI.parse(repo_url).scheme
   end
 
   def remove_origin
@@ -69,7 +84,10 @@ class ExtractRepo < Foobara::Command
       replace_sha1s = sh "git replace -l", silent: true
       replace_sha1s = replace_sha1s.chomp.split("\n")
       replace_sha1s.each do |replace_sha1|
+        # It seems like some versions of git do not create replace markers when doing this
+        # :nocov:
         sh "git replace -d #{replace_sha1}"
+        # :nocov:
       end
     end
   end
@@ -128,6 +146,21 @@ class ExtractRepo < Foobara::Command
       path_args = file_paths.map { |path| "--path #{path}" }.join(" ")
       sh "git-filter-repo #{path_args} --force --prune-degenerate always"
     end
+  end
+
+  # This feels dangerous however it is opt-in at least
+  def delete_extracted_paths
+    return unless local_repository?
+
+    Dir.chdir absolute_repo_path do
+      paths.each do |path|
+        FileUtils.rm_r path
+      end
+    end
+  end
+
+  def delete_extracted?
+    delete_extracted
   end
 
   def sh(cmd, dry_run: false, silent: false)
