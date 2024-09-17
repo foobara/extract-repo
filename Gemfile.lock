@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    extract-repo (0.0.3)
+    extract-repo (0.0.4)
       foobara
       foobara-sh-cli-connector
 
