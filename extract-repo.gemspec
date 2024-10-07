@@ -21,6 +21,8 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir[
     "bin/extract-repo",
+    "boot/**/*",
+    "boot.rb",
     "lib/**/*",
     "src/**/*",
     "LICENSE*.txt",

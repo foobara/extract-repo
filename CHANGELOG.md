@@ -1,3 +1,7 @@
+## [0.0.6] - 2024-10-06
+
+- Include boot files in gem
+
 ## [0.0.4] - 2024-09-17
 
 - Do not attempt to bundler/setup if we are being ran as a gem executable
