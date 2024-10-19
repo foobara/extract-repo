@@ -1,5 +1,7 @@
 require "pry"
+require "uri"
 require "English"
+
 require "foobara/all"
 
 # TODO: allow extracting from a local repo and default to that repo as "."

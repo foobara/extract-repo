@@ -1,3 +1,7 @@
+## [0.0.7] - 2024-10-18
+
+- Fix URI bug
+
 ## [0.0.6] - 2024-10-06
 
 - Include boot files in gem

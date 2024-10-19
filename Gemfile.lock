@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    extract-repo (0.0.6)
+    extract-repo (0.0.7)
       foobara
       foobara-sh-cli-connector
 
@@ -26,7 +26,7 @@ GEM
     foobara-rubocop-rules (0.0.4)
       rubocop
       rubocop-rspec
-    foobara-sh-cli-connector (0.0.3)
+    foobara-sh-cli-connector (0.0.4)
       foobara
     foobara-spec-helpers (0.0.3)
       foobara-util
@@ -81,7 +81,7 @@ GEM
       rspec-core (~> 3.13.0)
       rspec-expectations (~> 3.13.0)
       rspec-mocks (~> 3.13.0)
-    rspec-core (3.13.1)
+    rspec-core (3.13.2)
       rspec-support (~> 3.13.0)
     rspec-expectations (3.13.3)
       diff-lcs (>= 1.2.0, < 2.0)
@@ -93,7 +93,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
     rspec-support (3.13.1)
-    rubocop (1.66.1)
+    rubocop (1.67.0)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
