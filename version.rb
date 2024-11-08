@@ -1,5 +1,3 @@
-module Foobara
-  module ExtractRepo
-    VERSION = "0.0.7".freeze
-  end
+class ExtractRepoVersion
+  VERSION = "0.0.8".freeze
 end

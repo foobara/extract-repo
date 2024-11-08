@@ -1,3 +1,7 @@
+## [0.0.8] - 2024-11-07
+
+- Don't give the new repository the name of the source repository
+
 ## [0.0.7] - 2024-10-18
 
 - Fix URI bug

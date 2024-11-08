@@ -6,13 +6,13 @@ RSpec.describe ExtractRepo do
   end
   let(:output_dir) do
     # TODO: make this an input to ExtractRepo
-    "/#{Dir.home}/tmp/extract/test_repo"
+    "/#{Dir.home}/tmp/extracted_repo"
   end
 
   let(:repo_url) { repo_path }
   let(:delete_extracted) { false }
   let(:command) do
-    described_class.new(repo_url:, paths:, delete_extracted:)
+    described_class.new(repo_url:, paths:, delete_extracted:, output_path: output_dir)
   end
   let(:outcome) { command.run }
 
@@ -51,7 +51,7 @@ RSpec.describe ExtractRepo do
     let(:paths) { %w[new_name] }
 
     it "can follow the file's history" do
-      described_class.run!(repo_url: repo_path, paths:)
+      described_class.run!(repo_url: repo_path, paths:, output_path: output_dir)
 
       Dir.chdir output_dir do
         expect(File).to exist("new_name/new_name.txt")
@@ -69,10 +69,6 @@ RSpec.describe ExtractRepo do
              }
       end
     end
-  end
-
-  it "has a version number" do
-    expect(Foobara::ExtractRepo::VERSION).to_not be_nil
   end
 
   context "when given a url" do

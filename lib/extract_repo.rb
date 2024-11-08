@@ -43,26 +43,16 @@ class ExtractRepo < Foobara::Command
     Dir.chdir(File.expand_path(dir), &)
   end
 
-  def repo_dir
-    File.join(output_path, repo_name)
-  end
-
-  def repo_name
-    File.basename(repo_url, ".git")
-  end
-
   def mk_extract_dir
     sh "mkdir -p #{output_path}"
   end
 
   def rm_old_repo
-    sh "rm -rf #{repo_dir}"
+    sh "rm -rf #{output_path}"
   end
 
   def clone_repo
-    chdir output_path do
-      sh "git clone #{absolute_repo_path}"
-    end
+    sh "git clone #{absolute_repo_path} #{output_path}"
   end
 
   def local_repository?
@@ -70,19 +60,19 @@ class ExtractRepo < Foobara::Command
   end
 
   def remove_origin
-    chdir repo_dir do
+    chdir output_path do
       sh "git remote rm origin"
     end
   end
 
   def remove_tags
-    chdir repo_dir do
+    chdir output_path do
       sh "for i in `git tag`; do git tag -d $i; done"
     end
   end
 
   def remove_replaces
-    chdir repo_dir do
+    chdir output_path do
       replace_sha1s = sh "git replace -l", silent: true
       replace_sha1s = replace_sha1s.chomp.split("\n")
       replace_sha1s.each do |replace_sha1|
@@ -95,27 +85,25 @@ class ExtractRepo < Foobara::Command
   end
 
   def determine_paths
-    chdir repo_dir do
+    chdir output_path do
       self.file_paths = []
 
-      chdir repo_dir do
-        paths.each do |path|
-          unless File.exist?(path)
-            # :nocov:
-            raise "Path #{path} does not exist in repo #{repo_dir}"
-            # :nocov:
-          end
+      paths.each do |path|
+        unless File.exist?(path)
+          # :nocov:
+          raise "Path #{path} does not exist in repo #{output_path}"
+          # :nocov:
+        end
 
-          if File.directory?(path)
-            Dir.glob("#{path}/**/*").each do |file|
-              file_paths << file if File.file?(file)
-            end
-          else
-            # TODO: test this path
-            # :nocov:
-            file_paths << path
-            # :nocov:
+        if File.directory?(path)
+          Dir.glob("#{path}/**/*").each do |file|
+            file_paths << file if File.file?(file)
           end
+        else
+          # TODO: test this path
+          # :nocov:
+          file_paths << path
+          # :nocov:
         end
       end
     end
@@ -124,7 +112,7 @@ class ExtractRepo < Foobara::Command
   end
 
   def determine_historic_paths
-    chdir repo_dir do
+    chdir output_path do
       file_paths.dup.each do |file_path|
         historic_paths = sh "git log --follow --name-only --pretty=format: -- \"#{file_path}\""
 
@@ -144,7 +132,7 @@ class ExtractRepo < Foobara::Command
   end
 
   def filter_repo
-    chdir repo_dir do
+    chdir output_path do
       path_args = file_paths.map { |path| "--path #{path}" }.join(" ")
       sh "git-filter-repo #{path_args} --force --prune-degenerate always"
     end

@@ -2,7 +2,7 @@ require_relative "version"
 
 Gem::Specification.new do |spec|
   spec.name = "extract-repo"
-  spec.version = Foobara::ExtractRepo::VERSION
+  spec.version = ExtractRepoVersion::VERSION
   spec.authors = ["Miles Georgi"]
   spec.email = ["azimux@gmail.com"]
 
