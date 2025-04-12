@@ -7,7 +7,7 @@ if File.exist?("#{__dir__}/../Gemfile")
   require "bundler/setup"
 end
 
-if ENV["FOOBARA_ENV"] == "development" || ENV["FOOBARA_ENV"] == "test"
+if %w[development test].include?(ENV["FOOBARA_ENV"])
   require "pry"
   require "pry-byebug"
 end
