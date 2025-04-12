@@ -6,11 +6,14 @@ require "foobara/all"
 
 # TODO: allow extracting from a local repo and default to that repo as "."
 class ExtractRepo < Foobara::Command
+  description "Extracts directories/files of your choosing from one repo to another"
+
   inputs do
-    repo_url :string, :required
-    paths [:string], :required
-    output_path :string, default: "#{Dir.home}/tmp/extract"
-    delete_extracted :boolean, default: false
+    repo_url_or_path :string, :required, "The source repository to extract from. Can be a URL or a local directory"
+    paths [:string], :required, "Paths to each directory/file to extract"
+    output_path :string, default: "#{Dir.home}/tmp/extract",
+                         description: "Where to create a new repo and move the extracted files to"
+    delete_extracted :boolean, default: false, description: "Delete the extracted files from the source repository"
   end
 
   attr_accessor :file_paths, :absolute_repo_path
@@ -33,9 +36,9 @@ class ExtractRepo < Foobara::Command
 
   def determine_absolute_repo_path
     self.absolute_repo_path = if local_repository?
-                                File.absolute_path(repo_url)
+                                File.absolute_path(repo_url_or_path)
                               else
-                                repo_url
+                                repo_url_or_path
                               end
   end
 
@@ -56,7 +59,7 @@ class ExtractRepo < Foobara::Command
   end
 
   def local_repository?
-    !URI.parse(repo_url).scheme
+    !URI.parse(repo_url_or_path).scheme
   end
 
   def remove_origin

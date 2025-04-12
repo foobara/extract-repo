@@ -9,10 +9,10 @@ RSpec.describe ExtractRepo do
     "/#{Dir.home}/tmp/extracted_repo"
   end
 
-  let(:repo_url) { repo_path }
+  let(:repo_url_or_path) { repo_path }
   let(:delete_extracted) { false }
   let(:command) do
-    described_class.new(repo_url:, paths:, delete_extracted:, output_path: output_dir)
+    described_class.new(repo_url_or_path:, paths:, delete_extracted:, output_path: output_dir)
   end
   let(:outcome) { command.run }
 
@@ -51,7 +51,7 @@ RSpec.describe ExtractRepo do
     let(:paths) { %w[new_name] }
 
     it "can follow the file's history" do
-      described_class.run!(repo_url: repo_path, paths:, output_path: output_dir)
+      described_class.run!(repo_url_or_path: repo_path, paths:, output_path: output_dir)
 
       Dir.chdir output_dir do
         expect(File).to exist("new_name/new_name.txt")
@@ -72,13 +72,13 @@ RSpec.describe ExtractRepo do
   end
 
   context "when given a url" do
-    let(:repo_url) { "http://example.com" }
+    let(:repo_url_or_path) { "http://example.com" }
     let(:paths) { [] }
 
     describe "#determine_absolute_repo_path" do
-      it "just sets it to the repo_url" do
+      it "just sets it to the repo_url_or_path" do
         command.cast_and_validate_inputs
-        expect(command.determine_absolute_repo_path).to eq(repo_url)
+        expect(command.determine_absolute_repo_path).to eq(repo_url_or_path)
       end
     end
   end
