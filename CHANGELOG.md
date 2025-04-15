@@ -1,3 +1,7 @@
+## [0.0.10] - 2025-04-15
+
+- Remove pry as a required dependency
+
 ## [0.0.9] - 2025-01-07
 
 - Bump Ruby to 3.4.1

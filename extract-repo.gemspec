@@ -33,8 +33,8 @@ Gem::Specification.new do |spec|
   spec.bindir = "bin"
   spec.executables = ["extract-repo"]
 
-  spec.add_dependency "foobara"
-  spec.add_dependency "foobara-sh-cli-connector"
+  spec.add_dependency "foobara", "~> 0.0.102"
+  spec.add_dependency "foobara-sh-cli-connector", "~> 0.0.1"
 
   spec.require_paths = ["lib"]
   spec.metadata["rubygems_mfa_required"] = "true"
