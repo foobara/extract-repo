@@ -1,3 +1,7 @@
+## [0.0.11] - 2025-04-23
+
+- Fix problem that was including irrelevant file renames in the final git history
+
 ## [0.0.10] - 2025-04-15
 
 - Remove pry as a required dependency

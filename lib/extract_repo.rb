@@ -116,10 +116,32 @@ class ExtractRepo < Foobara::Command
   def determine_historic_paths
     chdir output_path do
       file_paths.dup.each do |file_path|
-        historic_paths = sh "git log --follow --name-only --pretty=format: -- \"#{file_path}\""
+        renames = {}
 
-        historic_paths.split("\n").each do |historic_path|
-          file_paths << historic_path
+        relevant_sha1s = sh "git log --follow --pretty=format:%H -- \"#{file_path}\""
+        relevant_sha1s = relevant_sha1s.strip.split("\n")
+
+        relevant_sha1s.each do |sha1|
+          status_lines = sh "git diff-tree -M --no-commit-id --name-status -r #{sha1}"
+          status_lines = status_lines.strip.split("\n")
+
+          status_lines.each do |status_line|
+            next unless status_line.start_with?("R")
+
+            similarity, from_path, to_path = status_line.split("\t")
+            similarity = similarity.match(/^R0*(\d+)$/)[1].to_i
+
+            if similarity >= 80
+              renames[to_path] = from_path
+            end
+          end
+        end
+
+        loop do
+          file_path = renames[file_path]
+          break unless file_path
+
+          file_paths << file_path
         end
       end
     end
