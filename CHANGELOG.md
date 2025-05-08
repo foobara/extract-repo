@@ -1,3 +1,7 @@
+## [0.0.12] - 2025-05-07
+
+- Avoid loading pry/pry-byebug if not needed
+
 ## [0.0.11] - 2025-04-23
 
 - Fix problem that was including irrelevant file renames in the final git history

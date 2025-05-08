@@ -48,7 +48,7 @@ RSpec.describe ExtractRepo do
   end
 
   context "when extracting a file that was moved" do
-    let(:paths) { %w[new_name] }
+    let(:paths) { ["new_name"] }
 
     it "can follow the file's history" do
       described_class.run!(repo_url_or_path: repo_path, paths:, output_path: output_dir)
