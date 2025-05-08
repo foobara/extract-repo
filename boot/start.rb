@@ -6,8 +6,3 @@ if File.exist?("#{__dir__}/../Gemfile")
   ENV["BUNDLE_GEMFILE"] ||= File.expand_path("../Gemfile", __dir__)
   require "bundler/setup"
 end
-
-if %w[development test].include?(ENV["FOOBARA_ENV"])
-  require "pry"
-  require "pry-byebug"
-end
