@@ -1,3 +1,7 @@
+## [0.0.13] - 2025-05-08
+
+- Prevent infinite loops when a file had been renamed and later named back to its original name
+
 ## [0.0.12] - 2025-05-07
 
 - Avoid loading pry/pry-byebug if not needed

@@ -132,21 +132,33 @@ class ExtractRepo < Foobara::Command
             similarity = similarity.match(/^R0*(\d+)$/)[1].to_i
 
             if similarity >= 80
-              renames[to_path] = from_path
+              renames[to_path] ||= []
+              renames[to_path] << from_path
             end
           end
         end
 
-        loop do
-          file_path = renames[file_path]
-          break unless file_path
-
-          file_paths << file_path
+        determine_historic_paths_for_file(file_path, renames).each do |path|
+          file_paths << path
         end
       end
     end
 
     normalize_file_paths
+  end
+
+  def determine_historic_paths_for_file(file_path, renames, seen = Set.new)
+    return [] if seen.include?(file_path)
+
+    seen << file_path
+
+    file_paths = renames[file_path]
+
+    return [] unless file_paths
+
+    file_paths + file_paths.map do |path|
+      determine_historic_paths_for_file(path, renames, seen)
+    end.flatten
   end
 
   def normalize_file_paths
