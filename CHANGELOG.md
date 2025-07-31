@@ -1,3 +1,7 @@
+## [0.0.14] - 2025-07-31
+
+- Bump deps and use 1.x.x versions of foobara gems
+
 ## [0.0.13] - 2025-05-08
 
 - Prevent infinite loops when a file had been renamed and later named back to its original name
