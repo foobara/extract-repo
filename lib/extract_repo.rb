@@ -79,9 +79,9 @@ class ExtractRepo < Foobara::Command
       replace_sha1s = replace_sha1s.chomp.split("\n")
       replace_sha1s.each do |replace_sha1|
         # It seems like some versions of git do not create replace markers when doing this
-        # :nocov:
+        # simplecov:disable
         sh "git replace -d #{replace_sha1}"
-        # :nocov:
+        # simplecov:enable
       end
     end
   end
@@ -92,9 +92,9 @@ class ExtractRepo < Foobara::Command
 
       paths.each do |path|
         unless File.exist?(path)
-          # :nocov:
+          # simplecov:disable
           raise "Path #{path} does not exist in repo #{output_path}"
-          # :nocov:
+          # simplecov:enable
         end
 
         if File.directory?(path)
@@ -103,9 +103,9 @@ class ExtractRepo < Foobara::Command
           end
         else
           # TODO: test this path
-          # :nocov:
+          # simplecov:disable
           file_paths << path
-          # :nocov:
+          # simplecov:enable
         end
       end
     end
@@ -199,9 +199,9 @@ class ExtractRepo < Foobara::Command
     result = `#{cmd}`
 
     unless $CHILD_STATUS.success?
-      # :nocov:
+      # simplecov:disable
       raise "Command #{cmd} failed with status #{$CHILD_STATUS.exitstatus}: #{result}"
-      # :nocov:
+      # simplecov:enable
     end
 
     result

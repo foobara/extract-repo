@@ -18,27 +18,27 @@ RSpec.describe ExtractRepo do
 
   def inflate_test_repo
     Dir.chdir(File.dirname(repo_path)) do
-      # :nocov:
+      # simplecov:disable
       unless Dir.exist?("extract_repo")
         `tar zxvf test_repo.tar.gz`
         unless $CHILD_STATUS.exitstatus == 0
           raise "Failed to inflate test repo"
         end
       end
-      # :nocov:
+      # simplecov:enable
     end
   end
 
   def rm_test_repo
     Dir.chdir(File.dirname(repo_path)) do
-      # :nocov:
+      # simplecov:disable
       if Dir.exist?("extract_repo")
         `rm -rf extract_repo`
         unless $CHILD_STATUS.exitstatus == 0
           raise "Failed to remove test repo"
         end
       end
-      # :nocov:
+      # simplecov:enable
     end
   end
 
