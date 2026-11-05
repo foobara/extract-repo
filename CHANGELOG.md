@@ -1,3 +1,8 @@
+## [1.0.1] - 2026-11-04
+
+- Handle FileUtils not being loaded in Ruby 4
+- Support appending file paths with "/" without breaking things
+
 ## [0.0.14] - 2025-07-31
 
 - Bump deps and use 1.x.x versions of foobara gems

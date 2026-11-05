@@ -1,5 +1,6 @@
 require "uri"
 require "English"
+require "fileutils"
 
 require "foobara/all"
 
@@ -98,7 +99,7 @@ class ExtractRepo < Foobara::Command
         end
 
         if File.directory?(path)
-          Dir.glob("#{path}/**/*").each do |file|
+          Dir.glob(File.join(path, "/**/*")).each do |file|
             file_paths << file if File.file?(file)
           end
         else
