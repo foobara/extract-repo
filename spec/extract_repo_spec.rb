@@ -2,7 +2,7 @@ require "English"
 
 RSpec.describe ExtractRepo do
   let(:repo_path) do
-    "#{__dir__}/../fixtures/test_repo"
+    "#{__dir__}/fixtures/test_repo"
   end
   let(:output_dir) do
     # TODO: make this an input to ExtractRepo
@@ -18,33 +18,31 @@ RSpec.describe ExtractRepo do
 
   def inflate_test_repo
     Dir.chdir(File.dirname(repo_path)) do
-      # simplecov:disable
       unless Dir.exist?("extract_repo")
         `tar zxvf test_repo.tar.gz`
+
         unless $CHILD_STATUS.exitstatus == 0
           raise "Failed to inflate test repo"
         end
       end
-      # simplecov:enable
     end
   end
 
   def rm_test_repo
     Dir.chdir(File.dirname(repo_path)) do
-      # simplecov:disable
-      if Dir.exist?("extract_repo")
-        `rm -rf extract_repo`
+      if Dir.exist?("test_repo")
+        `rm -rf test_repo`
+
         unless $CHILD_STATUS.exitstatus == 0
           raise "Failed to remove test repo"
         end
       end
-      # simplecov:enable
     end
   end
 
   before do
-    inflate_test_repo
     rm_test_repo
+    inflate_test_repo
   end
 
   context "when extracting a file that was moved" do
