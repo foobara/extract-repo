@@ -1,3 +1,7 @@
+## [1.0.2] - 2026-11-06
+
+- Create new repo on main branch even if source repo is on a feature branch
+
 ## [1.0.1] - 2026-11-04
 
 - Handle FileUtils not being loaded in Ruby 4

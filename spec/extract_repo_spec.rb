@@ -69,6 +69,40 @@ RSpec.describe ExtractRepo do
     end
   end
 
+  context "when the local repo has a different branch checked out" do
+    let(:paths) { ["new_name"] }
+
+    def current_branch(dir)
+      Dir.chdir dir do
+        `git branch --show-current`.tap do
+          unless $CHILD_STATUS.exitstatus == 0
+            raise "Failed to remove test repo"
+          end
+        end
+      end.strip
+    end
+
+    before do
+      Dir.chdir repo_path do
+        `git branch -m some-branch`
+
+        unless $CHILD_STATUS.exitstatus == 0
+          raise "Failed to remove test repo"
+        end
+      end
+    end
+
+    it "changes the name to main in the new repo" do
+      expect(outcome).to be_success
+
+      Dir.chdir output_dir do
+        expect(File).to exist("new_name/new_name.txt")
+      end
+      expect(current_branch(repo_path)).to eq("some-branch")
+      expect(current_branch(output_dir)).to eq("main")
+    end
+  end
+
   context "when given a url" do
     let(:repo_url_or_path) { "http://example.com" }
     let(:paths) { [] }

@@ -30,6 +30,7 @@ class ExtractRepo < Foobara::Command
     determine_historic_paths
     filter_repo
     remove_replaces
+    change_to_main_if_needed
 
     delete_extracted_paths if delete_extracted?
   end
@@ -85,6 +86,20 @@ class ExtractRepo < Foobara::Command
         # simplecov:enable
       end
     end
+  end
+
+  def change_to_main_if_needed
+    unless current_branch == "main"
+      chdir output_path do
+        sh "git branch -m main"
+      end
+    end
+  end
+
+  def current_branch
+    chdir output_path do
+      sh "git branch --show-current"
+    end.strip
   end
 
   def determine_paths
