@@ -25,6 +25,4 @@ group :test do
   gem "rspec-its"
   gem "ruby-prof"
   gem "simplecov"
-  gem "vcr"
-  gem "webmock"
 end
